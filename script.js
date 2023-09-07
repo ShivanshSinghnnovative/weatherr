@@ -26,6 +26,7 @@ function search() {
         data?.weather[0].description;
       document.getElementById("country").innerHTML = data?.sys.country;
 
+      
       if (data?.weather[0].description === "clear sky") {
         document.getElementById("bigbox").style.backgroundImage =
           "url('blue.jpg')";
@@ -73,45 +74,25 @@ function search() {
   }
 }
 
-getLocation();
+async function checkWeather() {
+  let url =
+    "https://api.openweathermap.org/data/2.5/weather?&q=Noida&appid=82005d27a116c2880c8f0fcb866998a0&units=metric";
 
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(fetchWeatherData);
-  } else {
-    alert("error ");
-  }
+  const responce = await fetch(url);
+  let data = await responce.json();
+  console.log(data);
+
+  document.getElementById("location").innerHTML = data.name;
+  document.getElementById("temperature").innerHTML = data.main.temp + "°C";
+  document.getElementById("temperaturedescription").innerHTML =
+    data.weather[0].description;
+  document.getElementById("country").innerHTML = data.sys.country;
+  document.getElementById("bigbox").style.backgroundImage =
+        "url('blue.jpg')";
+
+  const iconCode = data.weather[0].icon;
+  const iconUrl = `https://openweathermap.org/img/w/${iconCode}.png`;
+  document.getElementById("weatherpng").src = iconUrl;
 }
 
-function fetchWeatherData(position) {
-  const lat = position.coords.latitude;
-  const long = position.coords.longitude;
-  const apiKey = "82005d27a116c2880c8f0fcb866998a0";
-
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`;
-
-  checkWeather();
-
-  async function checkWeather() {
-    try {
-      const responce = await fetch(apiUrl);
-      let data = await responce.json();
-      console.log(data);
-
-      const iconCode = data.weather[0].icon;
-      const iconUrl = `https://openweathermap.org/img/w/${iconCode}.png`;
-      document.getElementById("weatherpng").src = iconUrl;
-
-      document.getElementById("location").innerHTML = data?.name;
-      document.getElementById("temperature").innerHTML = data?.main.temp + "°C";
-      document.getElementById("temperaturedescription").innerHTML =
-        data?.weather[0].description;
-      document.getElementById("country").innerHTML = data?.sys.country;
-    } catch (error) {
-      document.getElementById("displaycontainer").style.display = "none";
-      document.getElementById("hide").style.display = "block";
-      console.log(error);
-      console.log("jf,f");
-    }
-  }
-}
+checkWeather();
