@@ -3,6 +3,7 @@
 function search() {
   let countryName = document.getElementById("cityname");
   console.log(countryName.value);
+  document.getElementById("weatherpng").src = "loading.png";
   let key = "82005d27a116c2880c8f0fcb866998a0";
   let url = "https://api.openweathermap.org/data/2.5/weather?&units=metric";
 
