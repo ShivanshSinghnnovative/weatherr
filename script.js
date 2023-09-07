@@ -81,8 +81,7 @@ function search() {
 getLocation();
 function getLocation() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
+    navigator.geolocation.getCurrentPosition( (position) => {
         fetchWeather(position);
       },
       () => showError("Geolocation error")
@@ -107,41 +106,3 @@ function outputData(data) {
     data?.weather[0].description;
   document.getElementById("country").innerHTML = data?.sys.country;
 }
-
-
-// getLocation();
-
-// function getLocation() {
-//   if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(fetchWeatherData);
-//   } else {
-//     alert("error ");
-//   }
-// }
-
-// function fetchWeatherData(position) {
-//   console.log(position);
-//   const lat = position.coords.latitude;
-//   const long = position.coords.longitude;
-//   const cityNaam = position.name;
-//   console.log(cityNaam);
-
-//   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${"82005d27a116c2880c8f0fcb866998a0"}&units=metric`;
-
-//   checkWeather();
-
-//   async function checkWeather() {
-//     try {
-//       document.getElementById("weatherpng").src = "loading.png";
-//       const responce = await fetch(apiUrl);
-//       let data = await responce.json();
-//       // console.log(data);
-//       outputData(data);
-//     } catch (error) {
-//       document.getElementById("displaycontainer").style.display = "none";
-//       document.getElementById("hide").style.display = "block";
-//       console.log(error);
-//       console.log("jf,f");
-//     }
-//   }
-// }
