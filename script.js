@@ -11,11 +11,15 @@ function search() {
 
   async function checkWeather() {
     try {
+      document.getElementById("weatherpng").src = "loading.png";
+      document.getElementById("displaycontainer").style.display = "block";
+      document.getElementById("hide").style.display = "none";
       const responce = await fetch(
         url + `&appid=${key}` + `&q=${countryName.value}`
       );
       let data = await responce.json();
       console.log(data);
+      
 
       const iconCode = data.weather[0].icon;
       const iconUrl = `https://openweathermap.org/img/w/${iconCode}.png`;
@@ -63,9 +67,9 @@ function search() {
         document.getElementById("bigbox").style.backgroundImage =
           "url('rain.jpg')";
       }
-      document.getElementById("displaycontainer").style.display = "block";
-      document.getElementById("hide").style.display = "none";
+      
     } catch (error) {
+      document.getElementById("weatherpng").src = "loading.png";
       document.getElementById("displaycontainer").style.display = "none";
       document.getElementById("hide").style.display = "block";
       console.log(error);
@@ -96,6 +100,7 @@ function fetchWeatherData(position) {
 
   async function checkWeather() {
     try {
+      document.getElementById("weatherpng").src = "loading.png";
       const responce = await fetch(apiUrl);
       let data = await responce.json();
       console.log(data);
