@@ -63,7 +63,8 @@ function getLocation() {
 
 function outputData(data) {
   const iconCode = data.weather[0].icon;
-  const iconUrl = `https://openweathermap.org/img/w/${iconCode}.png`;
+  console.log(iconCode);
+  const iconUrl = `icons/${iconCode}.png`;
   document.getElementById("weatherpng").src = iconUrl;
 
   document.getElementById("location").innerHTML = data?.name;
